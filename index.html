@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onelab - Financial Reconciliation Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div id="app">
+        <header class="glass-nav">
+            <div class="container">
+                <div class="logo">
+                    <span class="logo-icon">💠</span>
+                    <h1>Onelab <span>Reconcile</span></h1>
+                </div>
+                <div class="nav-actions">
+                    <button id="regenerate-data" class="btn btn-secondary">Regenerate Data</button>
+                    <div class="status-indicator">
+                        <span class="pulse"></span>
+                        Live Data View
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="metrics-grid">
+                <div class="metric-card glass">
+                    <h3>Internal Balance</h3>
+                    <div class="value" id="internal-balance">$0.00</div>
+                    <div class="subtext">283 Transactions Processed</div>
+                </div>
+                <div class="metric-card glass">
+                    <h3>Bank Settlement</h3>
+                    <div class="value" id="bank-balance">$0.00</div>
+                    <div class="subtext">Settled Funds to Date</div>
+                </div>
+                <div class="metric-card glass highlight">
+                    <h3>Total Discrepancy</h3>
+                    <div class="value danger" id="variance">$0.00</div>
+                    <div class="subtext" id="gap-count">4 Issues Identified</div>
+                </div>
+            </section>
+
+            <section class="dashboard-body">
+                <div class="side-panel">
+                    <div class="card glass">
+                        <h3>Gap Analysis</h3>
+                        <ul id="gap-type-list" class="gap-list">
+                            <li data-type="timing">
+                                <span class="dot warning"></span>
+                                Timing Differences
+                                <span class="badge" id="timing-count">0</span>
+                            </li>
+                            <li data-type="rounding">
+                                <span class="dot info"></span>
+                                Rounding Variances
+                                <span class="badge" id="rounding-count">0</span>
+                            </li>
+                            <li data-type="duplicate">
+                                <span class="dot danger"></span>
+                                Duplicate Entries
+                                <span class="badge" id="duplicate-count">0</span>
+                            </li>
+                            <li data-type="orphan">
+                                <span class="dot purple"></span>
+                                Orphan Refunds
+                                <span class="badge" id="orphan-count">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card glass info-card">
+                        <h3>System Assumptions</h3>
+                        <ul class="assumption-list">
+                            <li>Transactions are near-instant.</li>
+                            <li>Settlements batch 1-2 days later.</li>
+                            <li>Multi-record batching is possible.</li>
+                            <li>Precision is set to 2 decimal places.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="card glass">
+                        <div class="card-header">
+                            <h3>Detailed Reconciliation Log</h3>
+                            <div class="filters">
+                                <button class="filter-tab active" data-filter="all">All</button>
+                                <button class="filter-tab" data-filter="gaps">Gaps Only</button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table id="recon-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Transaction ID</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Settled</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recon-body">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="glass-footer">
+            <div class="container footer-content">
+                <p>&copy; 2026 Onelab AI Assessment | Adityabodhi Gaikwad</p>
+                <div class="version-badge">v1.2.0 Stable</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="dataGenerator.js"></script>
+    <script type="module" src="reconciliation.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
